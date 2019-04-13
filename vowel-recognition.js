@@ -16,25 +16,22 @@ function vowelRecognition(input){
   }
   let newWord = '';
   iterate = (word) => {
-    if (word.length == 1){
-      count += vowelCheck([word.toLowerCase()]);
-      return count;
-    }
     for (let x = 0; x < word.length; x++){
-      if (x === 0){
+      if (x == 0){
         newWord = word[x].toLowerCase();
         count += vowelCheck([newWord]);
+        if (word.length == 1){
+          return count;
+        }
       } else {
         newWord += word[x].toLowerCase();
         count += vowelCheck(newWord.split(''));
-        if (x === word.length - 1){
+        if (x == word.length - 1){
           return iterate(newWord.slice(1));
         }
       }
     }
   }
-  return iterate(input);
-}
 
 console.log(vowelRecognition('hello'));
 console.log(vowelRecognition('fklshjfdhjskdljfhsalkdfsadjkfsajdfhashjdfa'));
