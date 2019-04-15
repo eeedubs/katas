@@ -1,37 +1,22 @@
 const vowels = ['a', 'e', 'i', 'o', 'u'];
-
-function vowelCheck(inputArray){
-  return inputArray.filter((val) => {
-    return vowels.indexOf(val) > -1;
-  }).length;
- }
  
+let count = 0;
+
 function vowelRecognition(input){
-  let count = 0;
-  if (!input){
-    return 0;
-  }
-  if (input.length == 1){
-    return vowelCheck([input]);
-  }
-  let newWord = '';
-  iterate = (word) => {
-    for (let x = 0; x < word.length; x++){
-      if (x == 0){
-        newWord = word[x].toLowerCase();
-        count += vowelCheck([newWord]);
-        if (word.length == 1){
-          return count;
-        }
-      } else {
-        newWord += word[x].toLowerCase();
-        count += vowelCheck(newWord.split(''));
-        if (x == word.length - 1){
-          return iterate(newWord.slice(1));
-        }
-      }
+  let formatInput = input.toLowerCase();
+  for (let letter in formatInput){
+    if (formatInput.length == 1){
+      count += vowels.includes(formatInput) ? 1 : 0;
+      let returnCount = count;
+      count = 0;
+      return returnCount;
+    }
+    if (vowels.includes(formatInput[letter])){
+      count += (formatInput.length - letter);
     }
   }
+  return vowelRecognition(formatInput.slice(1));
+}
 
 console.log(vowelRecognition('hello'));
 console.log(vowelRecognition('fklshjfdhjskdljfhsalkdfsadjkfsajdfhashjdfa'));
