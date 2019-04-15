@@ -1,21 +1,14 @@
 const vowels = ['a', 'e', 'i', 'o', 'u'];
  
-let count = 0;
-
 function vowelRecognition(input){
+  let count = 0;
   let formatInput = input.toLowerCase();
-  for (let letter in formatInput){
-    if (formatInput.length == 1){
-      count += vowels.includes(formatInput) ? 1 : 0;
-      let returnCount = count;
-      count = 0;
-      return returnCount;
-    }
-    if (vowels.includes(formatInput[letter])){
-      count += (formatInput.length - letter);
+  for (let letterPosition in formatInput){
+    if (vowels.includes(formatInput[letterPosition])){
+      count += ((formatInput.length - letterPosition) + (letterPosition * (formatInput.length - letterPosition)))
     }
   }
-  return vowelRecognition(formatInput.slice(1));
+  return count;
 }
 
 console.log(vowelRecognition('hello'));
